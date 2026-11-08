@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Electricity Lab: interactive physics experiments. Change voltage and resistance and see what happens to current, power and light.">
+  <meta name="theme-color" content="#10151F">
+  <title>Electricity Lab: Learn by experimenting</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M13 2 4 14h6l-1 8 9-12h-6z" fill="currentColor"/>
+        </svg>
+        <span>Electricity Lab</span>
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="#experiment-001">Experiment</a></li>
+          <li><a href="#learn">Learn</a></li>
+          <li><a href="#roadmap">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container">
+        <p class="eyebrow">Interactive physics</p>
+        <h1>Learn by experimenting.</h1>
+        <p class="lead">
+          Electricity Lab turns short physics videos into hands-on experiments.
+          Change the voltage, change the resistance, and watch what happens to
+          current, power and light.
+        </p>
+        <a class="btn btn-primary" href="#experiment-001">Start Experiment 001</a>
+      </div>
+    </section>
+
+    <section class="section" id="experiment-001" aria-labelledby="exp-title">
+      <div class="container">
+        <p class="eyebrow">Experiment 001</p>
+        <h2 id="exp-title">Why does a bulb get brighter?</h2>
+        <p class="section-intro">
+          A battery, a resistor and a bulb in one loop. Drag the sliders and
+          watch the current and the bulb respond.
+        </p>
+
+        <div class="lab card">
+          <figure class="circuit">
+            <svg id="circuit" viewBox="0 0 360 240" role="img" aria-labelledby="circuit-title circuit-desc" preserveAspectRatio="xMidYMid meet">
+              <title id="circuit-title">Series circuit diagram</title>
+              <desc id="circuit-desc">A battery, a resistor and a light bulb connected in a single loop. Moving dots show the direction of conventional current.</desc>
+              <defs>
+                <radialGradient id="glow-gradient">
+                  <stop offset="0%" stop-color="#FFD36B" stop-opacity="1"/>
+                  <stop offset="55%" stop-color="#FFB547" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#FFB547" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Wires -->
+              <g class="wires">
+                <path d="M60 100 V40 H120"/>
+                <path d="M210 40 H300 V88"/>
+                <path d="M300 152 V200 H60 V136"/>
+              </g>
+
+              <!-- Current flow (conventional current: + terminal, around the loop, back to -) -->
+              <g class="flow">
+                <path d="M60 100 V40 H120"/>
+                <path d="M210 40 H300 V88"/>
+                <path d="M300 152 V200 H60 V136"/>
+              </g>
+
+              <!-- Battery -->
+              <g class="battery">
+                <line class="plate-long" x1="40" y1="100" x2="80" y2="100"/>
+                <line class="plate-short" x1="49" y1="112" x2="71" y2="112"/>
+                <line class="plate-long" x1="40" y1="124" x2="80" y2="124"/>
+                <line class="plate-short" x1="49" y1="136" x2="71" y2="136"/>
+                <text class="svg-sign" x="88" y="106">+</text>
+                <text class="svg-sign" x="88" y="142">&#8722;</text>
+              </g>
+
+              <!-- Resistor -->
+              <path class="resistor" d="M120 40 L132 40 L140 22 L156 58 L172 22 L188 58 L196 40 L210 40"/>
+
+              <!-- Bulb -->
+              <circle id="bulb-glow" class="bulb-glow" cx="300" cy="120" r="60" fill="url(#glow-gradient)"/>
+              <circle id="bulb-glass" class="bulb-glass" cx="300" cy="120" r="32"/>
+              <g id="filament" class="filament">
+                <line x1="277.4" y1="97.4" x2="322.6" y2="142.6"/>
+                <line x1="322.6" y1="97.4" x2="277.4" y2="142.6"/>
+              </g>
+
+              <!-- Labels -->
+              <text id="svg-voltage" class="svg-value" x="104" y="124">U = 6 V</text>
+              <text id="svg-resistance" class="svg-value" x="165" y="86" text-anchor="middle">R = 10 &#937;</text>
+              <text id="svg-current" class="svg-value svg-current" x="180" y="184" text-anchor="middle">I = 0.60 A</text>
+              <text class="svg-name" x="60" y="224" text-anchor="middle">Battery</text>
+              <text class="svg-name" x="165" y="12" text-anchor="middle">Resistor</text>
+              <text class="svg-name" x="300" y="224" text-anchor="middle">Bulb</text>
+            </svg>
+            <figcaption>Moving dots show the direction of conventional current. Faster dots mean more current.</figcaption>
+          </figure>
+
+          <div class="panel">
+            <div class="controls">
+              <div class="control">
+                <div class="control-head">
+                  <label for="voltage">Voltage (U)</label>
+                  <output id="voltage-value" for="voltage">6 V</output>
+                </div>
+                <input type="range" id="voltage" min="1" max="12" step="0.5" value="6">
+                <div class="scale" aria-hidden="true"><span>1 V</span><span>12 V</span></div>
+              </div>
+
+              <div class="control">
+                <div class="control-head">
+                  <label for="resistance">Resistance (R)</label>
+                  <output id="resistance-value" for="resistance">10 &#937;</output>
+                </div>
+                <input type="range" id="resistance" min="2" max="50" step="1" value="10">
+                <div class="scale" aria-hidden="true"><span>2 &#937;</span><span>50 &#937;</span></div>
+              </div>
+            </div>
+
+            <div class="readouts">
+              <div class="readout">
+                <span class="readout-label">Current</span>
+                <span class="readout-formula">I = U &#247; R</span>
+                <span class="readout-value" id="current-value">0.60 A</span>
+              </div>
+              <div class="readout">
+                <span class="readout-label">Power</span>
+                <span class="readout-formula">P = U &#215; I</span>
+                <span class="readout-value" id="power-value">3.60 W</span>
+              </div>
+            </div>
+
+            <div class="status" id="status" aria-live="polite">
+              <p class="status-level" id="status-level"></p>
+              <p class="status-detail" id="status-detail"></p>
+            </div>
+
+            <div class="presets">
+              <p class="presets-title">Try these settings:</p>
+              <div class="preset-row">
+                <button type="button" class="chip preset" data-voltage="6" data-resistance="10">6 V, 10 &#937;</button>
+                <button type="button" class="chip preset" data-voltage="12" data-resistance="10">12 V, 10 &#937;</button>
+                <button type="button" class="chip preset" data-voltage="12" data-resistance="26">12 V, 26 &#937;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="learn" aria-labelledby="learn-title">
+      <div class="container">
+        <p class="eyebrow">The science</p>
+        <h2 id="learn-title">What is happening?</h2>
+
+        <div class="card prose">
+          <h3>Four quantities</h3>
+          <ul>
+            <li><strong>Voltage (U, volts):</strong> the electrical "push" the battery gives to charge.</li>
+            <li><strong>Resistance (R, ohms):</strong> how strongly a component opposes the flow of current.</li>
+            <li><strong>Current (I, amperes):</strong> how much charge flows past a point each second.</li>
+            <li><strong>Power (P, watts):</strong> how fast electrical energy is converted into heat and light.</li>
+          </ul>
+
+          <h3>Three formulas</h3>
+          <ul class="formula-list">
+            <li><span class="formula">I = U &#247; R</span> <span>Ohm's law</span></li>
+            <li><span class="formula">P = U &#215; I</span> <span>electrical power</span></li>
+            <li><span class="formula">P = U&#178; &#247; R</span> <span>the same power, written with U and R only</span></li>
+          </ul>
+
+          <h3>A worked example</h3>
+          <p>
+            At 6 V across 10 &#937;, the current is 0.60 A and the power is 3.60 W.
+            Raise the voltage to 12 V with the same resistance: the current doubles
+            to 1.20 A, but the power becomes 14.40 W, which is four times larger.
+            Power depends on the <em>square</em> of the voltage, so a small voltage
+            change makes a big difference to brightness.
+          </p>
+          <p>
+            Now keep 12 V and raise the resistance to 26 &#937;. The current drops to
+            about 0.46 A and the power to about 5.54 W, so the bulb dims.
+          </p>
+        </div>
+
+        <div class="card note">
+          <h3>Limits of this simulation</h3>
+          <ul>
+            <li>
+              <strong>Constant resistance.</strong> Here, R stays fixed at the value you
+              choose. A real incandescent bulb has a filament whose resistance rises
+              sharply as it heats up, so a real bulb does not follow
+              I = U &#247; R with one fixed number. A cold filament has much lower
+              resistance than a hot one.
+            </li>
+            <li>
+              <strong>Ideal parts.</strong> The battery gives a perfectly steady voltage
+              and the wires have no resistance. Real batteries and wires are not perfect.
+            </li>
+            <li>
+              <strong>Schematic brightness.</strong> The glow on screen is a visual
+              guide to the calculated power. It is not a calibrated measurement of
+              light output. Most of an incandescent bulb's power becomes heat, not light.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap" aria-labelledby="roadmap-title">
+      <div class="container">
+        <p class="eyebrow">Coming next</p>
+        <h2 id="roadmap-title">Future experiments</h2>
+        <div class="exp-grid">
+          <article class="card exp-card">
+            <p class="exp-number">Experiment 002</p>
+            <h3>Series vs. Parallel Circuits</h3>
+            <p>Switch between configurations and compare current and voltage.</p>
+            <span class="badge">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number">Experiment 003</p>
+            <h3>Ohm's Law</h3>
+            <p>Explore how voltage, current and resistance relate.</p>
+            <span class="badge">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number">Experiment 004</p>
+            <h3>Electrical Power</h3>
+            <p>See how voltage and resistance change power consumption.</p>
+            <span class="badge">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number">Experiment 005</p>
+            <h3>Capacitor Charging</h3>
+            <p>Watch a capacitor charge and discharge over time.</p>
+            <span class="badge">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number">Experiment 006</p>
+            <h3>Magnetic Fields</h3>
+            <p>Explore how electric current creates a magnetic field.</p>
+            <span class="badge">Coming soon</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-brand">Electricity Lab</p>
+      <p class="footer-text">Learn by experimenting. Simulations are idealized models for learning, not exact copies of real devices.</p>
+      <p class="footer-text">&#169; <span id="year">2026</span> Electricity Lab</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
