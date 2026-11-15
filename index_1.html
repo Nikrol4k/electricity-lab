@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Electricity Lab: interactive physics experiments. Change voltage and resistance, compare series and parallel circuits, and see what happens to current, power and light." data-i18n-attr="content:meta_desc">
+  <meta name="theme-color" content="#10151F">
+  <title data-i18n="meta_title">Electricity Lab: Learn by experimenting</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">
+        <svg class="brand-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M13 2 4 14h6l-1 8 9-12h-6z" fill="currentColor"/>
+        </svg>
+        <span>Electricity Lab</span>
+      </a>
+      <div class="lang-switch" role="group" aria-label="Language" data-i18n-attr="aria-label:lang_group">
+        <button type="button" class="lang-btn" data-lang="ru" lang="ru" title="Русский" aria-pressed="true">RU</button>
+        <button type="button" class="lang-btn" data-lang="en" lang="en" title="English" aria-pressed="false">EN</button>
+      </div>
+      <nav aria-label="Main" data-i18n-attr="aria-label:nav_aria">
+        <ul class="nav-list">
+          <li><a href="#experiment-001" data-i18n="nav_exp1">Exp. 001</a></li>
+          <li><a href="#experiment-002" data-i18n="nav_exp2">Exp. 002</a></li>
+          <li><a href="#learn" data-i18n="nav_learn">Learn</a></li>
+          <li><a href="#roadmap" data-i18n="nav_next">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container">
+        <p class="eyebrow" data-i18n="hero_eyebrow">Interactive physics</p>
+        <h1 data-i18n="hero_title">Learn by experimenting.</h1>
+        <p class="lead" data-i18n="hero_lead">
+          Electricity Lab turns short physics videos into hands-on experiments.
+          Change the voltage, change the resistance, and watch what happens to
+          current, power and light.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#experiment-001" data-i18n="hero_btn1">Start Experiment 001</a>
+          <a class="btn btn-secondary" href="#experiment-002" data-i18n="hero_btn2">Try Experiment 002</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIMENT 001 ===================== -->
+    <section class="section" id="experiment-001" aria-labelledby="exp-title">
+      <div class="container">
+        <p class="eyebrow" data-i18n="exp_label_001">Experiment 001</p>
+        <h2 id="exp-title" data-i18n="e1_title">Why does a bulb get brighter?</h2>
+        <p class="section-intro" data-i18n="e1_intro">
+          A battery, a resistor and a bulb in one loop. Drag the sliders and
+          watch the current and the bulb respond.
+        </p>
+
+        <div class="lab card">
+          <figure class="circuit">
+            <svg id="circuit" viewBox="0 0 360 240" role="img" aria-labelledby="circuit-title circuit-desc" preserveAspectRatio="xMidYMid meet">
+              <title id="circuit-title" data-i18n="e1_svg_title">Series circuit diagram</title>
+              <desc id="circuit-desc" data-i18n="e1_svg_desc">A battery, a resistor and a light bulb connected in a single loop. Moving dots show the direction of conventional current.</desc>
+              <defs>
+                <radialGradient id="glow-gradient">
+                  <stop offset="0%" stop-color="#FFD36B" stop-opacity="1"/>
+                  <stop offset="55%" stop-color="#FFB547" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#FFB547" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- Wires -->
+              <g class="wires">
+                <path d="M60 100 V40 H120"/>
+                <path d="M210 40 H300 V88"/>
+                <path d="M300 152 V200 H60 V136"/>
+              </g>
+
+              <!-- Current flow (conventional current: + terminal, around the loop, back to -) -->
+              <g class="flow">
+                <path d="M60 100 V40 H120"/>
+                <path d="M210 40 H300 V88"/>
+                <path d="M300 152 V200 H60 V136"/>
+              </g>
+
+              <!-- Battery -->
+              <g class="battery">
+                <line class="plate-long" x1="40" y1="100" x2="80" y2="100"/>
+                <line class="plate-short" x1="49" y1="112" x2="71" y2="112"/>
+                <line class="plate-long" x1="40" y1="124" x2="80" y2="124"/>
+                <line class="plate-short" x1="49" y1="136" x2="71" y2="136"/>
+                <text class="svg-sign" x="88" y="106">+</text>
+                <text class="svg-sign" x="88" y="142">&#8722;</text>
+              </g>
+
+              <!-- Resistor -->
+              <path class="resistor" d="M120 40 L132 40 L140 22 L156 58 L172 22 L188 58 L196 40 L210 40"/>
+
+              <!-- Bulb -->
+              <circle id="bulb-glow" class="bulb-glow" cx="300" cy="120" r="60" fill="url(#glow-gradient)"/>
+              <circle id="bulb-glass" class="bulb-glass" cx="300" cy="120" r="32"/>
+              <g id="filament" class="filament">
+                <line x1="277.4" y1="97.4" x2="322.6" y2="142.6"/>
+                <line x1="322.6" y1="97.4" x2="277.4" y2="142.6"/>
+              </g>
+
+              <!-- Labels -->
+              <text id="svg-voltage" class="svg-value" x="104" y="124">U = 6 V</text>
+              <text id="svg-resistance" class="svg-value" x="165" y="86" text-anchor="middle">R = 10 &#937;</text>
+              <text id="svg-current" class="svg-value svg-current" x="180" y="184" text-anchor="middle">I = 0.60 A</text>
+              <text class="svg-name" x="60" y="224" text-anchor="middle" data-i18n="svg_battery">Battery</text>
+              <text class="svg-name" x="165" y="12" text-anchor="middle" data-i18n="svg_resistor">Resistor</text>
+              <text class="svg-name" x="300" y="224" text-anchor="middle" data-i18n="svg_bulb">Bulb</text>
+            </svg>
+            <figcaption data-i18n="e1_caption">Moving dots show the direction of conventional current. Faster dots mean more current.</figcaption>
+          </figure>
+
+          <div class="panel">
+            <div class="controls">
+              <div class="control">
+                <div class="control-head">
+                  <label for="voltage" data-i18n="lbl_voltage">Voltage (U)</label>
+                  <output id="voltage-value" for="voltage">6 V</output>
+                </div>
+                <input type="range" id="voltage" min="1" max="12" step="0.5" value="6">
+                <div class="scale" aria-hidden="true"><span data-i18n="scale_v_min">1 V</span><span data-i18n="scale_v_max">12 V</span></div>
+              </div>
+
+              <div class="control">
+                <div class="control-head">
+                  <label for="resistance" data-i18n="lbl_resistance">Resistance (R)</label>
+                  <output id="resistance-value" for="resistance">10 &#937;</output>
+                </div>
+                <input type="range" id="resistance" min="2" max="50" step="1" value="10">
+                <div class="scale" aria-hidden="true"><span data-i18n="scale_r_min">2 &#937;</span><span data-i18n="scale_r_max">50 &#937;</span></div>
+              </div>
+            </div>
+
+            <div class="readouts">
+              <div class="readout">
+                <span class="readout-label" data-i18n="k_current">Current</span>
+                <span class="readout-formula">I = U &#247; R</span>
+                <span class="readout-value" id="current-value">0.60 A</span>
+              </div>
+              <div class="readout">
+                <span class="readout-label" data-i18n="k_power">Power</span>
+                <span class="readout-formula">P = U &#215; I</span>
+                <span class="readout-value" id="power-value">3.60 W</span>
+              </div>
+            </div>
+
+            <div class="status" id="status" aria-live="polite">
+              <p class="status-level" id="status-level"></p>
+              <p class="status-detail" id="status-detail"></p>
+            </div>
+
+            <div class="presets">
+              <p class="presets-title" data-i18n="presets_title">Try these settings:</p>
+              <div class="preset-row">
+                <button type="button" class="chip preset" data-voltage="6" data-resistance="10" data-i18n="preset_6_10">6 V, 10 &#937;</button>
+                <button type="button" class="chip preset" data-voltage="12" data-resistance="10" data-i18n="preset_12_10">12 V, 10 &#937;</button>
+                <button type="button" class="chip preset" data-voltage="12" data-resistance="26" data-i18n="preset_12_26">12 V, 26 &#937;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="learn" aria-labelledby="learn-title">
+      <div class="container">
+        <p class="eyebrow" data-i18n="the_science">The science</p>
+        <h2 id="learn-title" data-i18n="learn_title">What is happening?</h2>
+
+        <div class="card prose">
+          <h3 data-i18n="learn_h_quantities">Four quantities</h3>
+          <ul>
+            <li data-i18n-html="learn_q_voltage"><strong>Voltage (U, volts):</strong> the electrical "push" the battery gives to charge.</li>
+            <li data-i18n-html="learn_q_resistance"><strong>Resistance (R, ohms):</strong> how strongly a component opposes the flow of current.</li>
+            <li data-i18n-html="learn_q_current"><strong>Current (I, amperes):</strong> how much charge flows past a point each second.</li>
+            <li data-i18n-html="learn_q_power"><strong>Power (P, watts):</strong> how fast electrical energy is converted into heat and light.</li>
+          </ul>
+
+          <h3 data-i18n="learn_h_formulas">Three formulas</h3>
+          <ul class="formula-list">
+            <li><span class="formula">I = U &#247; R</span> <span data-i18n="learn_f_ohm">Ohm's law</span></li>
+            <li><span class="formula">P = U &#215; I</span> <span data-i18n="learn_f_power">electrical power</span></li>
+            <li><span class="formula">P = U&#178; &#247; R</span> <span data-i18n="learn_f_power2">the same power, written with U and R only</span></li>
+          </ul>
+
+          <h3 data-i18n="learn_h_example">A worked example</h3>
+          <p data-i18n-html="learn_ex1">
+            At 6 V across 10 &#937;, the current is 0.60 A and the power is 3.60 W.
+            Raise the voltage to 12 V with the same resistance: the current doubles
+            to 1.20 A, but the power becomes 14.40 W, which is four times larger.
+            Power depends on the <em>square</em> of the voltage, so a small voltage
+            change makes a big difference to brightness.
+          </p>
+          <p data-i18n="learn_ex2">
+            Now keep 12 V and raise the resistance to 26 &#937;. The current drops to
+            about 0.46 A and the power to about 5.54 W, so the bulb dims.
+          </p>
+        </div>
+
+        <div class="card note">
+          <h3 data-i18n="note1_title">Limits of this simulation</h3>
+          <ul>
+            <li data-i18n-html="note1_a">
+              <strong>Constant resistance.</strong> Here, R stays fixed at the value you
+              choose. A real incandescent bulb has a filament whose resistance rises
+              sharply as it heats up, so a real bulb does not follow
+              I = U &#247; R with one fixed number. A cold filament has much lower
+              resistance than a hot one.
+            </li>
+            <li data-i18n-html="note1_b">
+              <strong>Ideal parts.</strong> The battery gives a perfectly steady voltage
+              and the wires have no resistance. Real batteries and wires are not perfect.
+            </li>
+            <li data-i18n-html="note1_c">
+              <strong>Schematic brightness.</strong> The glow on screen is a visual
+              guide to the calculated power. It is not a calibrated measurement of
+              light output. Most of an incandescent bulb's power becomes heat, not light.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIMENT 002 ===================== -->
+    <section class="section" id="experiment-002" aria-labelledby="exp2-title">
+      <div class="container">
+        <p class="eyebrow" data-i18n="exp_label_002">Experiment 002</p>
+        <h2 id="exp2-title" data-i18n="e2_title">Series vs. parallel circuits</h2>
+        <p class="section-intro" data-i18n="e2_intro">
+          Two bulbs, one battery. Switch between a series and a parallel circuit,
+          change the voltage and the bulb resistances, and switch a bulb off to
+          see what happens to the other one.
+        </p>
+
+        <div class="lab sp-lab card">
+          <figure class="circuit sp-circuit">
+            <svg id="sp-circuit" viewBox="0 0 360 280" role="img" aria-labelledby="sp-circuit-title sp-circuit-desc" preserveAspectRatio="xMidYMid meet">
+              <title id="sp-circuit-title">Series circuit with two bulbs</title>
+              <desc id="sp-circuit-desc">A battery and two bulbs connected in one loop.</desc>
+              <defs>
+                <radialGradient id="sp-glow-grad">
+                  <stop offset="0%" stop-color="#FFD36B" stop-opacity="1"/>
+                  <stop offset="55%" stop-color="#FFB547" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#FFB547" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- ============ SERIES DIAGRAM ============ -->
+              <g id="sp-series" class="sp-diagram">
+                <!-- Bulb glows (drawn first, so they stay behind everything) -->
+                <circle class="sp-glow" data-bulb="1" cx="190" cy="60" r="52" fill="url(#sp-glow-grad)"/>
+                <circle class="sp-glow" data-bulb="2" cx="190" cy="230" r="52" fill="url(#sp-glow-grad)"/>
+
+                <!-- Wires (with gaps where the switches are) -->
+                <g class="sp-wires">
+                  <path d="M40 124V60H100"/>
+                  <path d="M130 60H166"/>
+                  <path d="M214 60H320V230H280"/>
+                  <path d="M250 230H214"/>
+                  <path d="M166 230H40V160"/>
+                </g>
+
+                <!-- Conventional current: from the + plate, around the loop, back to the - plate -->
+                <g class="sp-flow" data-seg="loop">
+                  <path d="M40 124V60H320V230H40V160"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(40 92) rotate(-90)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(270 60)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(320 145) rotate(90)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(110 230) rotate(180)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(40 196) rotate(-90)"/>
+                </g>
+
+                <!-- Battery -->
+                <g class="sp-battery">
+                  <line class="sp-plate-long" x1="26" y1="124" x2="54" y2="124"/>
+                  <line class="sp-plate-short" x1="33" y1="136" x2="47" y2="136"/>
+                  <line class="sp-plate-long" x1="26" y1="148" x2="54" y2="148"/>
+                  <line class="sp-plate-short" x1="33" y1="160" x2="47" y2="160"/>
+                  <text class="sp-sign" x="8" y="129">+</text>
+                  <text class="sp-sign" x="8" y="165">&#8722;</text>
+                </g>
+
+                <!-- Switches -->
+                <g class="sp-switch" data-switch="1">
+                  <circle class="sp-contact" cx="100" cy="60" r="3.5"/>
+                  <circle class="sp-contact" cx="130" cy="60" r="3.5"/>
+                  <line class="sp-blade sp-blade-closed" x1="100" y1="60" x2="130" y2="60"/>
+                  <line class="sp-blade sp-blade-open" x1="100" y1="60" x2="123" y2="47"/>
+                  <text class="sp-open-label" x="96" y="34" data-i18n="sp_open_label">OPEN</text>
+                </g>
+                <g class="sp-switch" data-switch="2">
+                  <circle class="sp-contact" cx="280" cy="230" r="3.5"/>
+                  <circle class="sp-contact" cx="250" cy="230" r="3.5"/>
+                  <line class="sp-blade sp-blade-closed" x1="280" y1="230" x2="250" y2="230"/>
+                  <line class="sp-blade sp-blade-open" x1="280" y1="230" x2="257" y2="243"/>
+                  <text class="sp-open-label" x="284" y="258" text-anchor="end" data-i18n="sp_open_label">OPEN</text>
+                </g>
+
+                <!-- Bulbs -->
+                <circle class="sp-glass-bg" cx="190" cy="60" r="24"/>
+                <circle class="sp-glass" data-bulb="1" cx="190" cy="60" r="24"/>
+                <g class="sp-filament" data-bulb="1">
+                  <line x1="173" y1="43" x2="207" y2="77"/>
+                  <line x1="207" y1="43" x2="173" y2="77"/>
+                </g>
+                <circle class="sp-glass-bg" cx="190" cy="230" r="24"/>
+                <circle class="sp-glass" data-bulb="2" cx="190" cy="230" r="24"/>
+                <g class="sp-filament" data-bulb="2">
+                  <line x1="173" y1="213" x2="207" y2="247"/>
+                  <line x1="207" y1="213" x2="173" y2="247"/>
+                </g>
+
+                <!-- Labels -->
+                <text class="sp-name" x="190" y="26" text-anchor="middle" data-i18n="bulb1">Bulb 1</text>
+                <text class="sp-val" data-label="r1" x="190" y="102" text-anchor="middle">R1 = 10 &#937;</text>
+                <text class="sp-val" data-label="u1" x="190" y="118" text-anchor="middle">U1 = 6 V</text>
+                <text class="sp-val sp-total" data-label="current" x="190" y="150" text-anchor="middle">I = 0.60 A</text>
+                <text class="sp-val" data-label="r2" x="190" y="170" text-anchor="middle">R2 = 10 &#937;</text>
+                <text class="sp-val" data-label="u2" x="190" y="186" text-anchor="middle">U2 = 6 V</text>
+                <text class="sp-name" x="190" y="270" text-anchor="middle" data-i18n="bulb2">Bulb 2</text>
+                <text class="sp-val sp-supply" data-label="voltage" x="64" y="147">12 V</text>
+              </g>
+
+              <!-- ============ PARALLEL DIAGRAM ============ -->
+              <g id="sp-parallel" class="sp-diagram is-hidden">
+                <circle class="sp-glow" data-bulb="1" cx="130" cy="132" r="52" fill="url(#sp-glow-grad)"/>
+                <circle class="sp-glow" data-bulb="2" cx="240" cy="132" r="52" fill="url(#sp-glow-grad)"/>
+
+                <!-- Wires (with gaps where the switches are) -->
+                <g class="sp-wires">
+                  <path d="M40 124V48H240V72"/>
+                  <path d="M130 48V72"/>
+                  <path d="M130 98V108"/>
+                  <path d="M240 98V108"/>
+                  <path d="M130 156V236"/>
+                  <path d="M240 156V236"/>
+                  <path d="M240 236H40V160"/>
+                </g>
+                <circle class="sp-junction" cx="130" cy="48" r="4.5"/>
+                <circle class="sp-junction" cx="130" cy="236" r="4.5"/>
+
+                <!-- Conventional current. Each segment moves at its own speed. -->
+                <g class="sp-flow" data-seg="trunk">
+                  <path d="M40 124V48H130"/>
+                  <path d="M130 236H40V160"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(40 88) rotate(-90)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(85 48)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(85 236) rotate(180)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(40 198) rotate(-90)"/>
+                </g>
+                <g class="sp-flow" data-seg="b1">
+                  <path d="M130 48V236"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(130 200) rotate(90)"/>
+                </g>
+                <g class="sp-flow" data-seg="rail">
+                  <path d="M130 48H240"/>
+                  <path d="M240 236H130"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(185 48)"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(185 236) rotate(180)"/>
+                </g>
+                <g class="sp-flow" data-seg="b2">
+                  <path d="M240 48V236"/>
+                  <polygon class="sp-arrow" points="-5,-5 6,0 -5,5" transform="translate(240 200) rotate(90)"/>
+                </g>
+
+                <!-- Battery -->
+                <g class="sp-battery">
+                  <line class="sp-plate-long" x1="26" y1="124" x2="54" y2="124"/>
+                  <line class="sp-plate-short" x1="33" y1="136" x2="47" y2="136"/>
+                  <line class="sp-plate-long" x1="26" y1="148" x2="54" y2="148"/>
+                  <line class="sp-plate-short" x1="33" y1="160" x2="47" y2="160"/>
+                  <text class="sp-sign" x="8" y="129">+</text>
+                  <text class="sp-sign" x="8" y="165">&#8722;</text>
+                </g>
+
+                <!-- Switches -->
+                <g class="sp-switch" data-switch="1">
+                  <circle class="sp-contact" cx="130" cy="72" r="3.5"/>
+                  <circle class="sp-contact" cx="130" cy="98" r="3.5"/>
+                  <line class="sp-blade sp-blade-closed" x1="130" y1="72" x2="130" y2="98"/>
+                  <line class="sp-blade sp-blade-open" x1="130" y1="72" x2="150" y2="88"/>
+                  <text class="sp-open-label" x="140" y="68" data-i18n="sp_open_label">OPEN</text>
+                </g>
+                <g class="sp-switch" data-switch="2">
+                  <circle class="sp-contact" cx="240" cy="72" r="3.5"/>
+                  <circle class="sp-contact" cx="240" cy="98" r="3.5"/>
+                  <line class="sp-blade sp-blade-closed" x1="240" y1="72" x2="240" y2="98"/>
+                  <line class="sp-blade sp-blade-open" x1="240" y1="72" x2="260" y2="88"/>
+                  <text class="sp-open-label" x="250" y="68" data-i18n="sp_open_label">OPEN</text>
+                </g>
+
+                <!-- Bulbs -->
+                <circle class="sp-glass-bg" cx="130" cy="132" r="24"/>
+                <circle class="sp-glass" data-bulb="1" cx="130" cy="132" r="24"/>
+                <g class="sp-filament" data-bulb="1">
+                  <line x1="113" y1="115" x2="147" y2="149"/>
+                  <line x1="147" y1="115" x2="113" y2="149"/>
+                </g>
+                <circle class="sp-glass-bg" cx="240" cy="132" r="24"/>
+                <circle class="sp-glass" data-bulb="2" cx="240" cy="132" r="24"/>
+                <g class="sp-filament" data-bulb="2">
+                  <line x1="223" y1="115" x2="257" y2="149"/>
+                  <line x1="257" y1="115" x2="223" y2="149"/>
+                </g>
+
+                <!-- Labels -->
+                <text class="sp-val sp-total" data-label="current" x="52" y="36">Total I = 2.40 A</text>
+                <text class="sp-val sp-supply" data-label="voltage" x="64" y="147">12 V</text>
+                <text class="sp-name" x="142" y="176" data-i18n="bulb1">Bulb 1</text>
+                <text class="sp-val" data-label="r1" x="142" y="192">R1 = 10 &#937;</text>
+                <text class="sp-val" data-label="u1" x="142" y="208">U1 = 12 V</text>
+                <text class="sp-val" data-label="i1" x="142" y="224">I1 = 1.20 A</text>
+                <text class="sp-name" x="252" y="176" data-i18n="bulb2">Bulb 2</text>
+                <text class="sp-val" data-label="r2" x="252" y="192">R2 = 10 &#937;</text>
+                <text class="sp-val" data-label="u2" x="252" y="208">U2 = 12 V</text>
+                <text class="sp-val" data-label="i2" x="252" y="224">I2 = 1.20 A</text>
+              </g>
+            </svg>
+            <figcaption data-i18n="e2_caption">Dots and arrows show conventional current, from the + plate around the circuit to the &#8722; plate. Faster dots mean more current. No dots means no current.</figcaption>
+          </figure>
+
+          <div class="panel">
+            <fieldset class="sp-config">
+              <legend data-i18n="sp_legend">Circuit type</legend>
+              <div class="segmented">
+                <input type="radio" name="sp-config" id="sp-config-series" value="series" checked>
+                <label for="sp-config-series" data-i18n="cfg_series">Series</label>
+                <input type="radio" name="sp-config" id="sp-config-parallel" value="parallel">
+                <label for="sp-config-parallel" data-i18n="cfg_parallel">Parallel</label>
+              </div>
+            </fieldset>
+
+            <div class="controls">
+              <div class="control">
+                <div class="control-head">
+                  <label for="sp-voltage" data-i18n="lbl_supply">Supply voltage (U)</label>
+                  <output id="sp-voltage-value" for="sp-voltage">12 V</output>
+                </div>
+                <input type="range" id="sp-voltage" min="1" max="12" step="0.5" value="12">
+                <div class="scale" aria-hidden="true"><span data-i18n="scale_v_min">1 V</span><span data-i18n="scale_v_max">12 V</span></div>
+              </div>
+
+              <div class="control sp-bulb-control">
+                <div class="control-head">
+                  <label for="sp-r1" data-i18n="lbl_r1">Bulb 1 resistance (R1)</label>
+                  <output id="sp-r1-value" for="sp-r1">10 &#937;</output>
+                </div>
+                <input type="range" id="sp-r1" min="2" max="50" step="1" value="10">
+                <div class="scale" aria-hidden="true"><span data-i18n="scale_r_min">2 &#937;</span><span data-i18n="scale_r_max">50 &#937;</span></div>
+                <div class="switch-row">
+                  <span class="switch-name" id="sp-switch-1-label" data-i18n="sw_name1">Bulb 1 switch</span>
+                  <button type="button" class="switch" id="sp-switch-1" role="switch" aria-checked="true" aria-labelledby="sp-switch-1-label">
+                    <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+                    <span class="switch-text" id="sp-switch-1-text">ON</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="control sp-bulb-control">
+                <div class="control-head">
+                  <label for="sp-r2" data-i18n="lbl_r2">Bulb 2 resistance (R2)</label>
+                  <output id="sp-r2-value" for="sp-r2">10 &#937;</output>
+                </div>
+                <input type="range" id="sp-r2" min="2" max="50" step="1" value="10">
+                <div class="scale" aria-hidden="true"><span data-i18n="scale_r_min">2 &#937;</span><span data-i18n="scale_r_max">50 &#937;</span></div>
+                <div class="switch-row">
+                  <span class="switch-name" id="sp-switch-2-label" data-i18n="sw_name2">Bulb 2 switch</span>
+                  <button type="button" class="switch" id="sp-switch-2" role="switch" aria-checked="true" aria-labelledby="sp-switch-2-label">
+                    <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+                    <span class="switch-text" id="sp-switch-2-text">ON</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="readouts">
+              <div class="readout">
+                <span class="readout-label" data-i18n="total_resistance">Total resistance</span>
+                <span class="readout-formula" id="sp-formula-r">R = R1 + R2</span>
+                <span class="readout-value" id="sp-total-r">20 &#937;</span>
+              </div>
+              <div class="readout">
+                <span class="readout-label" data-i18n="total_current">Total current</span>
+                <span class="readout-formula">I = U &#247; R</span>
+                <span class="readout-value" id="sp-total-i">0.60 A</span>
+              </div>
+            </div>
+
+            <table class="sp-table">
+              <caption data-i18n="tbl_caption">Results for each bulb</caption>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="sr-only" data-i18n="tbl_quantity">Quantity</span></th>
+                  <th scope="col" data-i18n="bulb1">Bulb 1</th>
+                  <th scope="col" data-i18n="bulb2">Bulb 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row" data-i18n="k_resistance">Resistance</th>
+                  <td id="sp-out-r1">10 &#937;</td>
+                  <td id="sp-out-r2">10 &#937;</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-i18n="k_current">Current</th>
+                  <td id="sp-out-i1">0.60 A</td>
+                  <td id="sp-out-i2">0.60 A</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-i18n="k_voltage">Voltage</th>
+                  <td id="sp-out-u1">6 V</td>
+                  <td id="sp-out-u2">6 V</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-i18n="k_power">Power</th>
+                  <td id="sp-out-p1">3.60 W</td>
+                  <td id="sp-out-p2">3.60 W</td>
+                </tr>
+                <tr>
+                  <th scope="row" data-i18n="k_brightness">Brightness</th>
+                  <td>
+                    <span class="sp-bright-text" id="sp-out-b1">Medium</span>
+                    <span class="sp-meter" aria-hidden="true"><span class="sp-meter-fill" id="sp-meter-1"></span></span>
+                  </td>
+                  <td>
+                    <span class="sp-bright-text" id="sp-out-b2">Medium</span>
+                    <span class="sp-meter" aria-hidden="true"><span class="sp-meter-fill" id="sp-meter-2"></span></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="status sp-status" id="sp-status" aria-live="polite">
+              <p class="status-level" id="sp-status-level"></p>
+              <p class="status-detail" id="sp-status-detail"></p>
+            </div>
+
+            <div class="presets">
+              <button type="button" class="chip" id="sp-reset" data-i18n="btn_reset">Reset to defaults</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card note">
+          <h3 data-i18n="note2_title">About this model</h3>
+          <ul>
+            <li data-i18n-html="note2_a">
+              <strong>Constant resistance.</strong> Each bulb is treated as an ideal resistive load
+              with a fixed resistance. A real incandescent filament changes resistance as it heats up
+              (it is much lower when cold), so real bulbs only roughly follow these numbers. The
+              simplification is fine for learning how series and parallel circuits behave.
+            </li>
+            <li data-i18n-html="note2_b">
+              <strong>Ideal battery and wires.</strong> The supply holds exactly the voltage you
+              choose, and the wires have no resistance.
+            </li>
+            <li data-i18n-html="note2_c">
+              <strong>Conventional current.</strong> Arrows and dots show conventional current:
+              the direction positive charge would move, from the + plate around the circuit to the
+              &#8722; plate. In metal wires the moving charges are actually electrons, which drift the
+              opposite way.
+            </li>
+            <li data-i18n-html="note2_d">
+              <strong>Schematic brightness.</strong> The glow is a visual guide to the calculated power,
+              not a measurement of light output.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="difference" aria-labelledby="difference-title">
+      <div class="container">
+        <p class="eyebrow" data-i18n="the_science">The science</p>
+        <h2 id="difference-title" data-i18n="diff_title">What's the difference?</h2>
+
+        <div class="exp-grid sp-intro-grid">
+          <article class="card">
+            <h3 data-i18n="diff_series_h">Series circuit</h3>
+            <p class="card-text" data-i18n="diff_series_p">Components share one path. The same current flows through every component, while the supply voltage is divided between them.</p>
+          </article>
+          <article class="card">
+            <h3 data-i18n="diff_parallel_h">Parallel circuit</h3>
+            <p class="card-text" data-i18n="diff_parallel_p">Components have separate paths. Each branch receives the same supply voltage, while the total current is divided between branches.</p>
+          </article>
+        </div>
+
+        <div class="card compare-card">
+          <table class="compare-table">
+            <caption class="sr-only" data-i18n="cmp_caption">Series and parallel circuits compared</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only" data-i18n="cmp_property">Property</span></th>
+                <th scope="col" data-i18n="cfg_series">Series</th>
+                <th scope="col" data-i18n="cfg_parallel">Parallel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-i18n="k_current">Current</th>
+                <td data-label="Series" data-i18n-attr="data-label:cmp_series_short" data-i18n="cmp_cur_s">The same through every bulb: I = I1 = I2</td>
+                <td data-label="Parallel" data-i18n-attr="data-label:cmp_parallel_short" data-i18n="cmp_cur_p">Divides between branches: I = I1 + I2</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="k_voltage">Voltage</th>
+                <td data-label="Series" data-i18n-attr="data-label:cmp_series_short" data-i18n="cmp_vol_s">Divided between the bulbs: U = U1 + U2</td>
+                <td data-label="Parallel" data-i18n-attr="data-label:cmp_parallel_short" data-i18n="cmp_vol_p">The same across every branch: U = U1 = U2</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="total_resistance">Total resistance</th>
+                <td data-label="Series" data-i18n-attr="data-label:cmp_series_short" data-i18n="cmp_res_s">Adds up: R = R1 + R2, larger than either bulb alone</td>
+                <td data-label="Parallel" data-i18n-attr="data-label:cmp_parallel_short" data-i18n="cmp_res_p">1/R = 1/R1 + 1/R2, smaller than either bulb alone</td>
+              </tr>
+              <tr>
+                <th scope="row" data-i18n="cmp_fail">If one bulb fails</th>
+                <td data-label="Series" data-i18n-attr="data-label:cmp_series_short" data-i18n="cmp_fail_s">The whole circuit stops. Both bulbs go out.</td>
+                <td data-label="Parallel" data-i18n-attr="data-label:cmp_parallel_short" data-i18n="cmp_fail_p">The other bulb keeps working.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card quiz" id="quiz">
+          <h3 data-i18n="quiz_title">Quick knowledge check</h3>
+          <p class="quiz-intro" data-i18n="quiz_intro">Pick an answer to see whether it is right.</p>
+
+          <fieldset class="quiz-question" data-explain-key="quiz_q1_explain">
+            <legend data-i18n="quiz_q1">1. In a series circuit, what happens to the current?</legend>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz_q1_a">It divides between the bulbs.</button>
+              <button type="button" class="quiz-option" data-correct="true" data-i18n="quiz_q1_b">It is the same through every component.</button>
+              <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz_q1_c">The first bulb uses up some of it, so less reaches the second.</button>
+            </div>
+            <p class="quiz-feedback" role="status"></p>
+          </fieldset>
+
+          <fieldset class="quiz-question" data-explain-key="quiz_q2_explain">
+            <legend data-i18n="quiz_q2">2. In a parallel circuit, what happens to the voltage across each branch?</legend>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-correct="true" data-i18n="quiz_q2_a">Each branch gets the full supply voltage.</button>
+              <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz_q2_b">The supply voltage is divided between the branches.</button>
+              <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz_q2_c">The branch with the larger resistance gets more voltage.</button>
+            </div>
+            <p class="quiz-feedback" role="status"></p>
+          </fieldset>
+
+          <fieldset class="quiz-question" data-explain-key="quiz_q3_explain">
+            <legend data-i18n="quiz_q3">3. In a parallel circuit, one branch is disconnected. What happens to the bulb on the other branch?</legend>
+            <div class="quiz-options">
+              <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz_q3_a">It goes out as well.</button>
+              <button type="button" class="quiz-option" data-correct="false" data-i18n="quiz_q3_b">It glows dimmer, because less current is available.</button>
+              <button type="button" class="quiz-option" data-correct="true" data-i18n="quiz_q3_c">It keeps working normally.</button>
+            </div>
+            <p class="quiz-feedback" role="status"></p>
+          </fieldset>
+
+          <p class="quiz-score" id="quiz-score" role="status"></p>
+          <button type="button" class="chip" id="quiz-reset" data-i18n="quiz_reset" hidden>Try the quiz again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ROADMAP ===================== -->
+    <section class="section" id="roadmap" aria-labelledby="roadmap-title">
+      <div class="container">
+        <p class="eyebrow" data-i18n="roadmap_eyebrow">Coming next</p>
+        <h2 id="roadmap-title" data-i18n="roadmap_title">More experiments</h2>
+        <div class="exp-grid">
+          <article class="card exp-card">
+            <p class="exp-number" data-i18n="exp_label_002">Experiment 002</p>
+            <h3 data-i18n="rm_002_title">Series vs. Parallel Circuits</h3>
+            <p data-i18n="rm_002_desc">Switch between configurations and compare current and voltage.</p>
+            <a class="badge badge-live" href="#experiment-002" data-i18n="badge_live">Available now &#8594;</a>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number" data-i18n="exp_label_003">Experiment 003</p>
+            <h3 data-i18n="rm_003_title">Ohm's Law</h3>
+            <p data-i18n="rm_003_desc">Explore how voltage, current and resistance relate.</p>
+            <span class="badge" data-i18n="badge_soon">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number" data-i18n="exp_label_004">Experiment 004</p>
+            <h3 data-i18n="rm_004_title">Electrical Power</h3>
+            <p data-i18n="rm_004_desc">See how voltage and resistance change power consumption.</p>
+            <span class="badge" data-i18n="badge_soon">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number" data-i18n="exp_label_005">Experiment 005</p>
+            <h3 data-i18n="rm_005_title">Capacitor Charging</h3>
+            <p data-i18n="rm_005_desc">Watch a capacitor charge and discharge over time.</p>
+            <span class="badge" data-i18n="badge_soon">Coming soon</span>
+          </article>
+          <article class="card exp-card">
+            <p class="exp-number" data-i18n="exp_label_006">Experiment 006</p>
+            <h3 data-i18n="rm_006_title">Magnetic Fields</h3>
+            <p data-i18n="rm_006_desc">Explore how electric current creates a magnetic field.</p>
+            <span class="badge" data-i18n="badge_soon">Coming soon</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-brand">Electricity Lab</p>
+      <p class="footer-text" data-i18n="footer_text">Learn by experimenting. Simulations are idealized models for learning, not exact copies of real devices.</p>
+      <p class="footer-text">&#169; <span id="year">2026</span> Electricity Lab</p>
+    </div>
+  </footer>
+
+  <script src="script.js" charset="utf-8"></script>
+</body>
+</html>
